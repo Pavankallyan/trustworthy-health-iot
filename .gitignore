@@ -1,0 +1,17 @@
+# Datasets — never committed; see data/README.md
+data/raw/
+*.pkl
+*.h5
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# OS / editors
+.DS_Store
+.vscode/
