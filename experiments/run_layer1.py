@@ -256,7 +256,7 @@ def run(seed=42):
 
 
 def main():
-    run()
+    return run()
 
 
 if __name__ == "__main__":
