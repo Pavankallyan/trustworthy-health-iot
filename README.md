@@ -15,7 +15,7 @@ Today these two problems are handled (if at all) by separate tooling. I'm buildi
 
 This is my flagship research build. It pulls together everything I've worked on:
 
-- SDET/QA instincts (4+ years testing, 40+ IoT products) → the corruption-injection evaluation method
+- SDET/QA instincts (3+ years testing, 40+ IoT products) → the corruption-injection evaluation method
 - Health-app experience → the connected-health domain
 - My `data-quality-monitor` and `ml-monitoring-dashboard` repos → the two layers
 - My `sla-breach-forecaster` → the alerting engine
