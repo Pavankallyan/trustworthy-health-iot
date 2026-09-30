@@ -1,0 +1,7 @@
+# Pinned dependencies for TrustGuard-IoT.
+# Versions below are the exact versions the full build + experiments were
+# tested against (Python 3.12, Linux).
+numpy==2.5.3
+pandas==3.0.6
+scipy==1.18.1
+scikit-learn==1.9.1

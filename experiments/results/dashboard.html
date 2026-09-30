@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>TrustGuard-IoT — Live Experiment Dashboard (real WESAD windows, injected faults)</title><style>
+body{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+margin:0;background:#0f172a;color:#e2e8f0}
+header{background:#111c33;padding:20px 28px;border-bottom:1px solid #1e293b}
+header h1{margin:0;font-size:22px}header p{margin:6px 0 0;color:#94a3b8;font-size:13px}
+main{padding:20px 28px;max-width:1100px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:#16213a;border:1px solid #243355;border-radius:12px;padding:16px}
+.card h2{margin:0 0 4px;font-size:16px}
+.score{font-size:40px;font-weight:700;margin:6px 0}
+.bar{height:10px;background:#243355;border-radius:6px;overflow:hidden;margin:6px 0}
+.bar>div{height:100%;border-radius:6px}
+.meta{font-size:12px;color:#94a3b8;margin:2px 0}
+.pen{font-size:12px;color:#fbbf24}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid #243355}
+th{color:#94a3b8;font-weight:600}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:700}
+.crit{background:#7f1d1d;color:#fecaca}.warn{background:#78350f;color:#fde68a}
+.info{background:#1e3a8a;color:#bfdbff}
+footer{padding:16px 28px;color:#64748b;font-size:12px;text-align:center}
+</style></head>
+<body><header><h1>TrustGuard-IoT — Live Experiment Dashboard (real WESAD windows, injected faults)</h1>
+<p>Unified data-trust + model-trust monitoring for connected health IoT.
+Scores are 0&ndash;100; higher is healthier.</p></header>
+<main><h2>Devices</h2><div class="grid">
+        <div class="card">
+          <h2>wesad-S4</h2>
+          <div class="score" style="color:#22c55e">81</div>
+          <div class="meta">trust score / 100</div>
+          <svg width="220" height="48" viewBox="0 0 220 48"><polyline points="8.0,8.0 48.8,8.0 89.6,32.8 130.4,8.0 171.2,30.1 212.0,40.0" fill="none" stroke="#22c55e" stroke-width="2"/></svg>
+          <div class="meta">Layer 1 (data): 90.0</div>
+          <div class="bar"><div style="width:90%;background:#22c55e"></div></div>
+          <div class="meta">Layer 2 (model): 66.7</div>
+          <div class="meta">Watch: bvp</div>
+          <div class="pen">layer1:bvp:degraded: -6.00</div><div class="pen">layer2:psi_proba: -4.44</div><div class="pen">layer2:ks_proba: -4.44</div><div class="pen">layer2:mean_confidence_drop: -4.44</div><div class="pen">layer1:ecg:healthy: -0.00</div>
+        </div>
+        <div class="card">
+          <h2>wesad-S6</h2>
+          <div class="score" style="color:#22c55e">100</div>
+          <div class="meta">trust score / 100</div>
+          <svg width="220" height="48" viewBox="0 0 220 48"><polyline points="8.0,8.0 48.8,8.0 89.6,8.0 130.4,40.0 171.2,8.0 212.0,8.0" fill="none" stroke="#22c55e" stroke-width="2"/></svg>
+          <div class="meta">Layer 1 (data): 100.0</div>
+          <div class="bar"><div style="width:100%;background:#22c55e"></div></div>
+          <div class="meta">Layer 2 (model): 100.0</div>
+          <div class="meta">Watch: none</div>
+          <div class="pen">layer1:ecg:healthy: -0.00</div><div class="pen">layer1:bvp:healthy: -0.00</div><div class="pen">layer2:psi_proba: -0.00</div><div class="pen">layer2:ks_proba: -0.00</div><div class="pen">layer2:mean_confidence_drop: -0.00</div>
+        </div></div>
+<h2 style="margin-top:28px">Alerts</h2><table><tr><th>Severity</th><th>Device</th><th>Alert</th><th>Detail</th><th>Source</th></tr><tr><td><span class="badge info">INFO</span></td><td>wesad-S4</td><td>Sensor ecg: drifting</td><td>Channel health 50.0/100. </td><td>layer1</td></tr><tr><td><span class="badge warn">WARNING</span></td><td>wesad-S4</td><td>Model degradation detected</td><td>Breached signals: psi_proba</td><td>layer2</td></tr><tr><td><span class="badge warn">WARNING</span></td><td>wesad-S4</td><td>Model degradation detected</td><td>Breached signals: psi_proba</td><td>layer2</td></tr><tr><td><span class="badge info">INFO</span></td><td>wesad-S4</td><td>Sensor bvp: degraded</td><td>Channel health 80.0/100. </td><td>layer1</td></tr><tr><td><span class="badge warn">WARNING</span></td><td>wesad-S6</td><td>Sensor bvp: stuck</td><td>Channel health 23.3/100. </td><td>layer1</td></tr></table></main>
+<footer>TrustGuard-IoT &mdash; generated report. Scores fuse Layer 1 sensor
+health with Layer 2 model-degradation signals; every penalty term is
+explainable in the per-device breakdown.</footer></body></html>

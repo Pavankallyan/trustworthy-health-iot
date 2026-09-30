@@ -1,53 +1,56 @@
 # TrustGuard-IoT
 
-A unified two-layer framework for detecting **silent data corruption** and **ML model degradation** in connected health IoT systems.
+I built TrustGuard-IoT because silent sensor corruption and silent model degradation are the two failures I kept running into in health IoT — and no single tool watched for both. It's a unified two-layer framework: **Layer 1** watches the raw sensor data for corruption (drift, stuck sensors, dropouts, quantization), **Layer 2** watches a deployed model for performance degradation without needing labels, and a **fusion engine** combines both into one explainable trust score per device with a live dashboard.
 
-## The problem I'm tackling
+## What I measured (all real runs, fixed seeds, 2026-09-30)
 
-Health IoT devices fail in two ways that crash-based monitoring never catches:
+**Layer 1 — fault injection on real WESAD wearable data** (chest + wrist sensors, 2 test subjects, 12 injected faults across 4 fault types × 3 severities, per-device calibrated thresholds):
 
-1. **Silent data corruption** — sensors keep streaming, but the readings are wrong: gradual drift, stuck-at values, dropouts, or sensors falling out of sync with each other. Everything looks "up" while the data quietly poisons every downstream decision.
-2. **Model degradation** — the ML models consuming those streams degrade after deployment as data distributions shift, with no labels around to tell you.
+| Fault type | Recall |
+|---|---|
+| Gradual drift | 3/3 |
+| Stuck-at | 3/3 |
+| Random dropout | 2/3 |
+| Quantization noise | 3/3 |
+| **Overall** | **11/12 (0.917)** |
 
-Today these two problems are handled (if at all) by separate tooling. I'm building one framework that watches both layers and fuses them into a single, interpretable **trust score per device** — so an operator can see *why* a device shouldn't be trusted right now, not just that something is off.
+Validation false-alarm rate: **0.000** on both subjects. The one miss was 10% random dropout on ECG — below the detection floor I calibrated.
 
-## Why this project exists
+**Against baselines** (same 12 runs, thresholds matched to my validation FAR): TrustGuard **0.917** vs IsolationForest **0.500**, KS-only **0.750**, PCA-reconstruction **0.833**.
 
-This is my flagship research build. It pulls together everything I've worked on:
+**Layer 2 — stress-model degradation monitoring** (trained on subject S2, validated on S3, tested on S4+S5): test accuracy **0.780**, F1 **0.629**, AUC **0.884**, ECE **0.191**. When I corrupted the model's inputs, the label-free monitor flagged **3/3** degradation scenarios, with true accuracy drops of 0.461, 0.000, and 0.154 (the middle one the model genuinely tolerated — the monitor is conservative and I report that).
 
-- SDET/QA instincts (3+ years testing, 40+ IoT products) → the corruption-injection evaluation method
-- Health-app experience → the connected-health domain
-- My `data-quality-monitor` and `ml-monitoring-dashboard` repos → the two layers
-- My `sla-breach-forecaster` → the alerting engine
-- My `iot-predictive-maintenance` → the streaming backbone
+**Ablations**: Layer 1 alone catches 11/12 sensor faults; Layer 2 alone catches 1/12 (it can only see corruptions that move model outputs — which is exactly why Layer 1 is necessary); removing the KS/PSI distribution detectors drops Layer 1 to 5/12. Fused trust AUC **0.951** vs independent alert OR **0.875**.
 
-The goal is a working system **and** a research paper (working title: *TrustGuard-IoT: A Unified Two-Layer Framework for Detecting Silent Data Corruption and Model Degradation in Connected Health IoT Systems*). The full research blueprint — architecture, datasets, experiments, paper outline, venues — lives in the project blueprint document.
+**Tests**: 156/156 pass (`pytest packages/`). CI runs on every push.
 
-## Current status
+## Honest limitations
 
-🚧 **Week 1 — scaffold + dataset curation.** Right now this repo contains the monorepo skeleton and the curated open datasets under `data/raw/` (not committed — see `data/README.md`). The validators, model monitors, and fusion dashboard land over the next few weeks per the blueprint's 10-week plan.
+- Layer 1 is evaluated on WESAD only. I tried PAMAP2 (activities change every ~4 min — no stable baseline possible) and PTB (acute-MI records with severe intrinsic non-stationarity, KS D up to 0.99 between adjacent clean windows) and excluded both with measured reasons, documented in `experiments/experiment_plan.md`.
+- Slow signals (EDA, skin temperature) drift naturally as a resting subject settles; my metrics focus on ECG/BVP where the evaluation is clean.
+- The stress model leans on EDA/temperature, which are confounded with session time — cross-subject generalization is a known weakness.
+- One WESAD subject (S5) was excluded from testing: its wrist BVP shows intrinsic contact-loss artifact.
 
-No results yet, and I'm not claiming any — metrics will appear here only after real experiments run.
+## Layout
 
-## Repository layout
+- `packages/data-trust/` — Layer 1: stream/window handling, validators (range, schema, dropout, stuck-at, drift via KS/PSI/trend, cross-sensor consistency), fault injection, pipeline.
+- `packages/model-trust/` — Layer 2: feature extraction, stress-model training/evaluation, `ModelTrustMonitor` (PSI/KS/confidence/ECE/accuracy signals).
+- `packages/fusion-dashboard/` — fusion (deterministic trust score with per-penalty explanations), alert routing with cooldown, JSONL audit log, static HTML dashboard.
+- `experiments/` — pre-registered plan (`experiment_plan.md` + addenda), `run_layer1.py`, `run_baselines.py`, `run_layer2.py`, `run_ablations.py`, `run_all.py`, and `results/` with every measured JSON + the dashboard.
+- `requirements.txt` — exact pinned versions (numpy 2.5.3, pandas 3.0.6, scipy 1.18.1, scikit-learn 1.9.1; Python 3.12).
 
+## Reproduce
+
+```bash
+pip install -r requirements.txt
+PYTHONPATH=packages/data-trust:packages/model-trust:packages/fusion-dashboard \
+  python -m pytest packages/ -q          # 156 tests
+PYTHONPATH=packages/data-trust:packages/model-trust:packages/fusion-dashboard:experiments \
+  python experiments/run_all.py          # full suite -> experiments/results/
 ```
-trustworthy-health-iot/
-├── packages/
-│   ├── data-trust/          # Layer 1: streaming data validators + sensor health scoring
-│   ├── model-trust/         # Layer 2: deployed-model degradation monitors
-│   └── fusion-dashboard/    # Trust fusion: unified per-device trust score + dashboard
-├── experiments/             # Reproducible experiment scripts (corruption injection, baselines)
-├── docs/                    # Design notes, paper drafts
-└── data/
-    ├── README.md            # Dataset inventory (sources, licenses, checksums)
-    └── raw/                 # Downloaded datasets (gitignored, never committed)
-```
 
-## Datasets
+Datasets (WESAD) are public and downloaded separately; see `experiments/README.md`. Every run uses fixed seeds (master 42, per-run 42000 + index).
 
-Open datasets only — no PHI. See [`data/README.md`](data/README.md) for sources, licenses, and verification details.
+## Background
 
-## License
-
-MIT
+I'm Pavan Kalyan, an MS Data Science student at Wentworth (Dec 2026) with 3+ years in software testing/QA. I build health-IoT side projects and got tired of data pipelines failing silently — this is my attempt at a principled fix. Preprint planned for arXiv, then 2027 workshops.

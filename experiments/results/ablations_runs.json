@@ -1,0 +1,230 @@
+[
+  {
+    "run": 0,
+    "subject": "S4",
+    "fault": "gradual_drift",
+    "params": {
+      "rate": 0.02
+    },
+    "target": "ecg",
+    "seed": 42000,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": false,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 79.82,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  },
+  {
+    "run": 1,
+    "subject": "S6",
+    "fault": "gradual_drift",
+    "params": {
+      "rate": 0.05
+    },
+    "target": "bvp",
+    "seed": 42001,
+    "l1_only": true,
+    "l2_only": true,
+    "full_stack": true,
+    "no_kspsi": false,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 65.06,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  },
+  {
+    "run": 2,
+    "subject": "S4",
+    "fault": "gradual_drift",
+    "params": {
+      "rate": 0.1
+    },
+    "target": "ecg",
+    "seed": 42002,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": false,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 70.0,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  },
+  {
+    "run": 3,
+    "subject": "S6",
+    "fault": "stuck_at",
+    "params": {
+      "value": "onset"
+    },
+    "target": "bvp",
+    "seed": 42003,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": true,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 54.0,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  },
+  {
+    "run": 4,
+    "subject": "S4",
+    "fault": "stuck_at",
+    "params": {
+      "value": "median"
+    },
+    "target": "ecg",
+    "seed": 42004,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": true,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 54.0,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  },
+  {
+    "run": 5,
+    "subject": "S6",
+    "fault": "stuck_at",
+    "params": {
+      "value": "midrange"
+    },
+    "target": "bvp",
+    "seed": 42005,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": true,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 54.0,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  },
+  {
+    "run": 6,
+    "subject": "S4",
+    "fault": "random_dropout",
+    "params": {
+      "p": 0.1
+    },
+    "target": "ecg",
+    "seed": 42006,
+    "l1_only": false,
+    "l2_only": false,
+    "full_stack": false,
+    "no_kspsi": false,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 100.0,
+    "trust_clean": 100.0,
+    "indep_corrupted": false,
+    "indep_clean": false
+  },
+  {
+    "run": 7,
+    "subject": "S6",
+    "fault": "random_dropout",
+    "params": {
+      "p": 0.3
+    },
+    "target": "bvp",
+    "seed": 42007,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": true,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 62.5,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  },
+  {
+    "run": 8,
+    "subject": "S4",
+    "fault": "random_dropout",
+    "params": {
+      "p": 0.5
+    },
+    "target": "ecg",
+    "seed": 42008,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": true,
+    "l2_clean_false_alarm": 1,
+    "trust_corrupted": 57.5,
+    "trust_clean": 86.67,
+    "indep_corrupted": true,
+    "indep_clean": true
+  },
+  {
+    "run": 9,
+    "subject": "S6",
+    "fault": "quantization_noise",
+    "params": {
+      "n_levels": 4
+    },
+    "target": "bvp",
+    "seed": 42009,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": false,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 70.0,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  },
+  {
+    "run": 10,
+    "subject": "S4",
+    "fault": "quantization_noise",
+    "params": {
+      "n_levels": 8
+    },
+    "target": "ecg",
+    "seed": 42010,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": false,
+    "l2_clean_false_alarm": 1,
+    "trust_corrupted": 70.0,
+    "trust_clean": 86.67,
+    "indep_corrupted": true,
+    "indep_clean": true
+  },
+  {
+    "run": 11,
+    "subject": "S6",
+    "fault": "quantization_noise",
+    "params": {
+      "n_levels": 16
+    },
+    "target": "bvp",
+    "seed": 42011,
+    "l1_only": true,
+    "l2_only": false,
+    "full_stack": true,
+    "no_kspsi": false,
+    "l2_clean_false_alarm": 0,
+    "trust_corrupted": 70.0,
+    "trust_clean": 100.0,
+    "indep_corrupted": true,
+    "indep_clean": false
+  }
+]

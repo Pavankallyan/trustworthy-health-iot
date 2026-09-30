@@ -1,0 +1,442 @@
+{
+  "dataset": "wesad",
+  "seed": 42,
+  "subjects": [
+    "S4",
+    "S6"
+  ],
+  "split": {
+    "train_windows": [
+      0,
+      8
+    ],
+    "val_windows": [
+      8,
+      13
+    ],
+    "test_windows": [
+      13,
+      19
+    ],
+    "interval_s": [
+      240.0,
+      1380.0
+    ],
+    "window_s": 60.0,
+    "targets": [
+      "ecg",
+      "bvp"
+    ]
+  },
+  "thresholds": {
+    "S4": {
+      "ks_min_d": 0.15,
+      "psi_drift": 0.3,
+      "psi_watch": 0.15,
+      "stuck_min_duration_s": 10.0
+    },
+    "S6": {
+      "ks_min_d": 0.18544531249999996,
+      "psi_drift": 0.5428345986147702,
+      "psi_watch": 0.4776944467809979,
+      "stuck_min_duration_s": 10.0
+    }
+  },
+  "calibration": {
+    "S4": {
+      "n_val_windows": 5,
+      "max_clean_ks_d": 0.06752499999999995,
+      "max_clean_psi": 0.08939806101366371,
+      "max_clean_flat_s": 0.0
+    },
+    "S6": {
+      "n_val_windows": 5,
+      "max_clean_ks_d": 0.14835624999999997,
+      "max_clean_psi": 0.4342676788918162,
+      "max_clean_flat_s": 0.0
+    }
+  },
+  "false_alarm": {
+    "S4": {
+      "far": 0.0,
+      "n_windows": 5,
+      "per_channel_counts": {}
+    },
+    "S6": {
+      "far": 0.0,
+      "n_windows": 5,
+      "per_channel_counts": {}
+    }
+  },
+  "recall_by_fault": {
+    "gradual_drift": {
+      "recall": 1.0,
+      "n": 3,
+      "detected": 3
+    },
+    "stuck_at": {
+      "recall": 1.0,
+      "n": 3,
+      "detected": 3
+    },
+    "random_dropout": {
+      "recall": 0.6666666666666666,
+      "n": 3,
+      "detected": 2
+    },
+    "quantization_noise": {
+      "recall": 1.0,
+      "n": 3,
+      "detected": 3
+    }
+  },
+  "overall_recall": 0.9166666666666666,
+  "runs": [
+    {
+      "run_index": 0,
+      "seed": 42000,
+      "subject": "S4",
+      "fault": "gradual_drift",
+      "params": {
+        "rate": 0.02
+      },
+      "target": "ecg",
+      "window_start_s": 1020.0,
+      "device": "wesad-S4",
+      "ground_truth": [
+        {
+          "type": "gradual_drift",
+          "channel": "ecg",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 3500,
+          "end_sample": 38500,
+          "params": {
+            "magnitude": 0.04645957946777344
+          }
+        }
+      ],
+      "detected": true,
+      "state": "drifting",
+      "channel_score": 66.35872739470265,
+      "layer_score": 61.25836364574636
+    },
+    {
+      "run_index": 1,
+      "seed": 42001,
+      "subject": "S6",
+      "fault": "gradual_drift",
+      "params": {
+        "rate": 0.05
+      },
+      "target": "bvp",
+      "window_start_s": 1020.0,
+      "device": "wesad-S6",
+      "ground_truth": [
+        {
+          "type": "gradual_drift",
+          "channel": "bvp",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 320,
+          "end_sample": 3520,
+          "params": {
+            "magnitude": 22.47429374999985
+          }
+        }
+      ],
+      "detected": true,
+      "state": "drifting",
+      "channel_score": 63.98536753799593,
+      "layer_score": 57.23204750292276
+    },
+    {
+      "run_index": 2,
+      "seed": 42002,
+      "subject": "S4",
+      "fault": "gradual_drift",
+      "params": {
+        "rate": 0.1
+      },
+      "target": "ecg",
+      "window_start_s": 1080.0,
+      "device": "wesad-S4",
+      "ground_truth": [
+        {
+          "type": "gradual_drift",
+          "channel": "ecg",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 3500,
+          "end_sample": 38500,
+          "params": {
+            "magnitude": 0.23229789733886722
+          }
+        }
+      ],
+      "detected": true,
+      "state": "drifting",
+      "channel_score": 50.0,
+      "layer_score": 58.65656230613569
+    },
+    {
+      "run_index": 3,
+      "seed": 42003,
+      "subject": "S6",
+      "fault": "stuck_at",
+      "params": {
+        "value": "onset"
+      },
+      "target": "bvp",
+      "window_start_s": 1080.0,
+      "device": "wesad-S6",
+      "ground_truth": [
+        {
+          "type": "stuck_at",
+          "channel": "bvp",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 320,
+          "end_sample": 3520,
+          "params": {}
+        }
+      ],
+      "detected": true,
+      "state": "stuck",
+      "channel_score": 23.328125,
+      "layer_score": 56.6507020974785
+    },
+    {
+      "run_index": 4,
+      "seed": 42004,
+      "subject": "S4",
+      "fault": "stuck_at",
+      "params": {
+        "value": "median"
+      },
+      "target": "ecg",
+      "window_start_s": 1140.0,
+      "device": "wesad-S4",
+      "ground_truth": [
+        {
+          "type": "stuck_at",
+          "channel": "ecg",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 3500,
+          "end_sample": 38500,
+          "params": {
+            "value": -0.0246734619140625
+          }
+        }
+      ],
+      "detected": true,
+      "state": "stuck",
+      "channel_score": 23.333333333333332,
+      "layer_score": 56.604166666666664
+    },
+    {
+      "run_index": 5,
+      "seed": 42005,
+      "subject": "S6",
+      "fault": "stuck_at",
+      "params": {
+        "value": "midrange"
+      },
+      "target": "bvp",
+      "window_start_s": 1140.0,
+      "device": "wesad-S6",
+      "ground_truth": [
+        {
+          "type": "stuck_at",
+          "channel": "bvp",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 320,
+          "end_sample": 3520,
+          "params": {
+            "value": -10.229550000001268
+          }
+        }
+      ],
+      "detected": true,
+      "state": "stuck",
+      "channel_score": 23.333333333333332,
+      "layer_score": 55.641025641025635
+    },
+    {
+      "run_index": 6,
+      "seed": 42006,
+      "subject": "S4",
+      "fault": "random_dropout",
+      "params": {
+        "p": 0.1
+      },
+      "target": "ecg",
+      "window_start_s": 1200.0,
+      "device": "wesad-S4",
+      "ground_truth": [
+        {
+          "type": "random_dropout",
+          "channel": "ecg",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 3500,
+          "end_sample": 38500,
+          "params": {
+            "fraction": 0.1
+          }
+        }
+      ],
+      "detected": false,
+      "state": "healthy",
+      "channel_score": 100.0,
+      "layer_score": 64.207740402424
+    },
+    {
+      "run_index": 7,
+      "seed": 42007,
+      "subject": "S6",
+      "fault": "random_dropout",
+      "params": {
+        "p": 0.3
+      },
+      "target": "bvp",
+      "window_start_s": 1200.0,
+      "device": "wesad-S6",
+      "ground_truth": [
+        {
+          "type": "random_dropout",
+          "channel": "bvp",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 320,
+          "end_sample": 3520,
+          "params": {
+            "fraction": 0.3
+          }
+        }
+      ],
+      "detected": true,
+      "state": "dropout",
+      "channel_score": 37.5,
+      "layer_score": 56.73076923076923
+    },
+    {
+      "run_index": 8,
+      "seed": 42008,
+      "subject": "S4",
+      "fault": "random_dropout",
+      "params": {
+        "p": 0.5
+      },
+      "target": "ecg",
+      "window_start_s": 1260.0,
+      "device": "wesad-S4",
+      "ground_truth": [
+        {
+          "type": "random_dropout",
+          "channel": "ecg",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 3500,
+          "end_sample": 38500,
+          "params": {
+            "fraction": 0.5
+          }
+        }
+      ],
+      "detected": true,
+      "state": "dropout",
+      "channel_score": 29.166666666666664,
+      "layer_score": 60.27727465432373
+    },
+    {
+      "run_index": 9,
+      "seed": 42009,
+      "subject": "S6",
+      "fault": "quantization_noise",
+      "params": {
+        "n_levels": 4
+      },
+      "target": "bvp",
+      "window_start_s": 1260.0,
+      "device": "wesad-S6",
+      "ground_truth": [
+        {
+          "type": "quantization_noise",
+          "channel": "bvp",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 320,
+          "end_sample": 3520,
+          "params": {
+            "n_levels": 4
+          }
+        }
+      ],
+      "detected": true,
+      "state": "drifting",
+      "channel_score": 50.0,
+      "layer_score": 57.69230769230769
+    },
+    {
+      "run_index": 10,
+      "seed": 42010,
+      "subject": "S4",
+      "fault": "quantization_noise",
+      "params": {
+        "n_levels": 8
+      },
+      "target": "ecg",
+      "window_start_s": 1320.0,
+      "device": "wesad-S4",
+      "ground_truth": [
+        {
+          "type": "quantization_noise",
+          "channel": "ecg",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 3500,
+          "end_sample": 38500,
+          "params": {
+            "n_levels": 8
+          }
+        }
+      ],
+      "detected": true,
+      "state": "drifting",
+      "channel_score": 50.0,
+      "layer_score": 56.09942285429949
+    },
+    {
+      "run_index": 11,
+      "seed": 42011,
+      "subject": "S6",
+      "fault": "quantization_noise",
+      "params": {
+        "n_levels": 16
+      },
+      "target": "bvp",
+      "window_start_s": 1320.0,
+      "device": "wesad-S6",
+      "ground_truth": [
+        {
+          "type": "quantization_noise",
+          "channel": "bvp",
+          "start_s": 5.0,
+          "end_s": 55.0,
+          "start_sample": 320,
+          "end_sample": 3520,
+          "params": {
+            "n_levels": 16
+          }
+        }
+      ],
+      "detected": true,
+      "state": "drifting",
+      "channel_score": 50.0,
+      "layer_score": 61.88194762402713
+    }
+  ]
+}

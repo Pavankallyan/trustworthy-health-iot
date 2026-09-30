@@ -1,0 +1,51 @@
+{
+  "overall_recall": 0.9166666666666666,
+  "recall_by_fault": {
+    "gradual_drift": {
+      "recall": 1.0,
+      "n": 3,
+      "detected": 3
+    },
+    "stuck_at": {
+      "recall": 1.0,
+      "n": 3,
+      "detected": 3
+    },
+    "random_dropout": {
+      "recall": 0.6666666666666666,
+      "n": 3,
+      "detected": 2
+    },
+    "quantization_noise": {
+      "recall": 1.0,
+      "n": 3,
+      "detected": 3
+    }
+  },
+  "false_alarm": {
+    "S4": {
+      "far": 0.0,
+      "n_windows": 5,
+      "per_channel_counts": {}
+    },
+    "S6": {
+      "far": 0.0,
+      "n_windows": 5,
+      "per_channel_counts": {}
+    }
+  },
+  "thresholds": {
+    "S4": {
+      "ks_min_d": 0.15,
+      "psi_drift": 0.3,
+      "psi_watch": 0.15,
+      "stuck_min_duration_s": 10.0
+    },
+    "S6": {
+      "ks_min_d": 0.18544531249999996,
+      "psi_drift": 0.5428345986147702,
+      "psi_watch": 0.4776944467809979,
+      "stuck_min_duration_s": 10.0
+    }
+  }
+}

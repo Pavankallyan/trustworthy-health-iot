@@ -1,0 +1,15 @@
+{
+  "n_runs": 12,
+  "coverage": {
+    "layer1_only": 0.9166666666666666,
+    "layer2_only": 0.08333333333333333,
+    "full_stack": 0.9166666666666666,
+    "no_kspsi": 0.4166666666666667
+  },
+  "layer2_clean_false_alarms": 2,
+  "cell5_n_items": 24,
+  "cell5_note": "fused AUC ranks 12 corrupted vs 12 clean windows by trust score; independent AUC uses the binary OR of the layers' alerts",
+  "fused_auc": 0.9513888888888888,
+  "independent_auc": 0.8749999999999999,
+  "independent_or_false_positives": 2
+}

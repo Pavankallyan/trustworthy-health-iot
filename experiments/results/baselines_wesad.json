@@ -1,0 +1,90 @@
+{
+  "dataset": "wesad",
+  "val_far_matched": {
+    "S4": 0.0,
+    "S6": 0.0
+  },
+  "baselines": {
+    "isolation_forest": {
+      "n": 12,
+      "detected": 6,
+      "by_fault": {
+        "gradual_drift": {
+          "n": 3,
+          "det": 1,
+          "recall": 0.3333333333333333
+        },
+        "stuck_at": {
+          "n": 3,
+          "det": 2,
+          "recall": 0.6666666666666666
+        },
+        "random_dropout": {
+          "n": 3,
+          "det": 0,
+          "recall": 0.0
+        },
+        "quantization_noise": {
+          "n": 3,
+          "det": 3,
+          "recall": 1.0
+        }
+      },
+      "recall": 0.5
+    },
+    "ks_only": {
+      "n": 12,
+      "detected": 9,
+      "by_fault": {
+        "gradual_drift": {
+          "n": 3,
+          "det": 3,
+          "recall": 1.0
+        },
+        "stuck_at": {
+          "n": 3,
+          "det": 3,
+          "recall": 1.0
+        },
+        "random_dropout": {
+          "n": 3,
+          "det": 0,
+          "recall": 0.0
+        },
+        "quantization_noise": {
+          "n": 3,
+          "det": 3,
+          "recall": 1.0
+        }
+      },
+      "recall": 0.75
+    },
+    "pca_reconstruction": {
+      "n": 12,
+      "detected": 10,
+      "by_fault": {
+        "gradual_drift": {
+          "n": 3,
+          "det": 3,
+          "recall": 1.0
+        },
+        "stuck_at": {
+          "n": 3,
+          "det": 3,
+          "recall": 1.0
+        },
+        "random_dropout": {
+          "n": 3,
+          "det": 2,
+          "recall": 0.6666666666666666
+        },
+        "quantization_noise": {
+          "n": 3,
+          "det": 2,
+          "recall": 0.6666666666666666
+        }
+      },
+      "recall": 0.8333333333333334
+    }
+  }
+}

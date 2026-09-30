@@ -1,0 +1,141 @@
+{
+ "test_metrics": {
+  "accuracy": 0.7799043062200957,
+  "f1": 0.6290322580645161,
+  "auc": 0.8843691651106962,
+  "ece": 0.1910273275327069
+ },
+ "degradation_runs": [
+  {
+   "seed": 42000,
+   "subject": "S4",
+   "faults": [
+    {
+     "type": "gradual_drift",
+     "channel": "ecg",
+     "params": {
+      "rate": 0.05
+     }
+    },
+    {
+     "type": "gradual_drift",
+     "channel": "eda_c",
+     "params": {
+      "rate": 0.05
+     }
+    }
+   ],
+   "n_windows": 20,
+   "true_acc_clean": 0.7692307692307693,
+   "true_acc_corrupted": 0.3076923076923077,
+   "true_acc_drop": 0.46153846153846156,
+   "monitor_flagged": true,
+   "batches_until_flag": 1,
+   "truth": [
+    {
+     "type": "gradual_drift",
+     "channel": "ecg",
+     "start_s": 60.0,
+     "end_s": 660.0,
+     "start_sample": 42000,
+     "end_sample": 462000,
+     "params": {
+      "magnitude": 1.1862030029296875
+     }
+    },
+    {
+     "type": "gradual_drift",
+     "channel": "eda_c",
+     "start_s": 60.0,
+     "end_s": 660.0,
+     "start_sample": 42000,
+     "end_sample": 462000,
+     "params": {
+      "magnitude": 2.1211624145507812
+     }
+    }
+   ]
+  },
+  {
+   "seed": 42001,
+   "subject": "S4",
+   "faults": [
+    {
+     "type": "random_dropout",
+     "channel": "ecg",
+     "params": {
+      "p": 0.3
+     }
+    },
+    {
+     "type": "random_dropout",
+     "channel": "eda_c",
+     "params": {
+      "p": 0.3
+     }
+    }
+   ],
+   "n_windows": 20,
+   "true_acc_clean": 0.7692307692307693,
+   "true_acc_corrupted": 0.7692307692307693,
+   "true_acc_drop": 0.0,
+   "monitor_flagged": true,
+   "batches_until_flag": 1,
+   "truth": [
+    {
+     "type": "random_dropout",
+     "channel": "ecg",
+     "start_s": 60.0,
+     "end_s": 660.0,
+     "start_sample": 42000,
+     "end_sample": 462000,
+     "params": {
+      "fraction": 0.3
+     }
+    },
+    {
+     "type": "random_dropout",
+     "channel": "eda_c",
+     "start_s": 60.0,
+     "end_s": 660.0,
+     "start_sample": 42000,
+     "end_sample": 462000,
+     "params": {
+      "fraction": 0.3
+     }
+    }
+   ]
+  },
+  {
+   "seed": 42002,
+   "subject": "S4",
+   "faults": [
+    {
+     "type": "stuck_at",
+     "channel": "bvp",
+     "params": {}
+    }
+   ],
+   "n_windows": 20,
+   "true_acc_clean": 0.7692307692307693,
+   "true_acc_corrupted": 0.6153846153846154,
+   "true_acc_drop": 0.15384615384615385,
+   "monitor_flagged": true,
+   "batches_until_flag": 1,
+   "truth": [
+    {
+     "type": "stuck_at",
+     "channel": "bvp",
+     "start_s": 60.0,
+     "end_s": 660.0,
+     "start_sample": 3840,
+     "end_sample": 42240,
+     "params": {}
+    }
+   ]
+  }
+ ],
+ "n_train": 64,
+ "n_val": 68,
+ "n_test": 209
+}
